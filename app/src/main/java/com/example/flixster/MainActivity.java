@@ -30,6 +30,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // create the adapter
+
+        // set the adapter on the recycler view
+
+        // set a layout manager on the recycler view
+
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(NOW_PLAYING_URL, new JsonHttpResponseHandler() {
             // response handler is async so code can continue running
