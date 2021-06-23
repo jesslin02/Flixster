@@ -13,6 +13,8 @@ represents a movie object, constructed from the JSON object in the results array
 public class Movie {
     /* relative url path (back half of url) to the movie poster image */
     String posterPath;
+    /* relative url path (back half of url) to the movie backdrop image for use in landscape mode*/
+    String backdropPath;
     /* title of movie */
     String title;
     /* movie description */
@@ -20,6 +22,7 @@ public class Movie {
 
     public Movie(JSONObject jsonObject) throws JSONException {
         this.posterPath = jsonObject.getString("poster_path");
+        this.backdropPath = jsonObject.getString("backdrop_path");
         this.title = jsonObject.getString("title");
         this.overview = jsonObject.getString("overview");
     }
@@ -39,6 +42,11 @@ public class Movie {
         // at the available sizes first, appending the size to the base url, then appending
         // the relative path (posterPath) to the end
         return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath);
+    }
+
+    public String getBackdropPath() {
+        // same hardcoding as getPosterPath
+        return String.format("https://image.tmdb.org/t/p/w342/%s", backdropPath);
     }
 
     public String getTitle() {
