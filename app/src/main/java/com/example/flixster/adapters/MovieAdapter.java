@@ -1,6 +1,7 @@
 package com.example.flixster.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,12 +14,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.flixster.MovieDetailsActivity;
 import com.example.flixster.R;
 import com.example.flixster.models.Movie;
 
 import org.jetbrains.annotations.NotNull;
+import org.parceler.Parcels;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     /* where the adapter is being constructed from */
@@ -63,7 +68,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         return movies.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvTitle;
         TextView tvOverview;
@@ -74,12 +79,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+            // allow us to decide what happens when an item is clicked
+            itemView.setOnClickListener(this);
         }
 
 
         public void bind(Movie movie) {
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
+            int radius = 30; // corner radius, higher value = more rounded
+            int margin = 10; // crop margin, set to 0 for corners with no crop
             if (context.getResources().getConfiguration().orientation
                     == Configuration.ORIENTATION_LANDSCAPE) {
                 Glide.with(context)
@@ -92,6 +101,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                         .placeholder(R.drawable.flicks_movie_placeholder)
                         .into(ivPoster);
             }
+        }
+        /*
+        when user clicks on a row, show MovieDetailsActivity for the selected movie
+         */
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) { // checks that item exists in the view
+                Movie selectedMovie = movies.get(position);
+                // create intent for new activity
+                Intent intent = new Intent(context, MovieDetailsActivity.class);
+                // serialize movie using parceler, use movie class's short name as a key
+                intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(selectedMovie));
+                // show the activity
+                context.startActivity(intent);
+            }
+
         }
     }
 }
