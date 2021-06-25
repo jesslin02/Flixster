@@ -25,6 +25,7 @@ import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     /* where the adapter is being constructed from */
     Context context;
@@ -36,8 +37,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         this.movies = movies;
     }
 
-    /*
-    inflate a layout from XML and return the view holder
+    /**
+     * inflate a layout from XML and return the view holder
      */
     @NonNull
     @NotNull
@@ -83,7 +84,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             itemView.setOnClickListener(this);
         }
 
-
+        /**
+         *
+         * @param movie
+         */
         public void bind(Movie movie) {
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
@@ -93,12 +97,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                     == Configuration.ORIENTATION_LANDSCAPE) {
                 Glide.with(context)
                         .load(movie.getBackdropPath())
+                        .transform(new RoundedCornersTransformation(radius, margin))
                         .placeholder(R.drawable.flicks_backdrop_placeholder)
+                        .override(750, 500)
                         .into(ivPoster);
             } else {
                 Glide.with(context)
                         .load(movie.getPosterPath())
+                        .transform(new RoundedCornersTransformation(radius, margin))
                         .placeholder(R.drawable.flicks_movie_placeholder)
+                        .override(300, 450)
                         .into(ivPoster);
             }
         }

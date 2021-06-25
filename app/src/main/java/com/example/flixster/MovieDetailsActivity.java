@@ -17,6 +17,8 @@ import com.example.flixster.models.Movie;
 
 import org.parceler.Parcels;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class MovieDetailsActivity extends AppCompatActivity {
 
     /* movie whose details the app will display */
@@ -56,16 +58,23 @@ public class MovieDetailsActivity extends AppCompatActivity {
         float starRating = movie.getVoteAverage().floatValue() / 2.0f;
         activityMDB.rbVoteAverage.setRating(starRating);
 
+        int radius = 30; // corner radius, higher value = more rounded
+        int margin = 10; // crop margin, set to 0 for corners with no crop
+
         if (this.getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE) {
             Glide.with(this)
                     .load(movie.getPosterPath())
+                    .transform(new RoundedCornersTransformation(radius, margin))
                     .placeholder(R.drawable.flicks_movie_placeholder)
+                    .override(600, 900)
                     .into(activityMDB.ivBackdrop);
         } else {
             Glide.with(this)
                     .load(movie.getBackdropPath())
+                    .transform(new RoundedCornersTransformation(radius, margin))
                     .placeholder(R.drawable.flicks_backdrop_placeholder)
+                    .override(900, 600)
                     .into(activityMDB.ivBackdrop);
         }
 
