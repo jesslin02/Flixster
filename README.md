@@ -24,15 +24,12 @@ The following **stretch** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you can get done to improve the app functionality!
+* [x] movie details activity supports both Portrait and Landscape mode
 
 ## Video Walkthrough
 
-Here's a walkthrough of implemented user stories:
-
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
-GIF created with [Kap](https://getkap.co/).
+Here's a [walkthrough](https://imgur.com/a/X3GNb2j) of implemented user stories. There are short
+videos that demonstrate functionality in portrait and landscape modes.
 
 ## Notes
 
