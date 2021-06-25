@@ -33,7 +33,9 @@ videos that demonstrate functionality in portrait and landscape modes.
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+* first time creating another activity and using an intent to move between them
+* transformation of image using Glide library was challenging to get the dimensions right
+* first time using an API
 
 ## Open-source libraries used
 
